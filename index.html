@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кинотека PRO</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background: #0b0f17;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            padding: 2rem 1rem;
+            color: #eef2f6;
+        }
+        .app {
+            max-width: 950px;
+            width: 100%;
+            background: rgba(18, 26, 40, 0.85);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-radius: 40px;
+            padding: 2rem 1.8rem;
+            box-shadow: 0 30px 50px -12px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.04);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            height: fit-content;
+        }
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            color: #f0f4fe;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.8rem;
+            flex-wrap: wrap;
+        }
+        h1 span {
+            background: #3b82f6;
+            color: white;
+            font-size: 1rem;
+            padding: 0.1rem 0.9rem;
+            border-radius: 40px;
+            margin-left: 0.5rem;
+            box-shadow: 0 0 12px rgba(59, 130, 246, 0.3);
+        }
+        .add-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+            margin-bottom: 1.2rem;
+        }
+        .add-section input, .add-section select {
+            padding: 0.9rem 1.2rem;
+            border: 1px solid #2a3442;
+            border-radius: 60px;
+            background: #131d2b;
+            color: #f0f4fe;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.2s;
+            box-shadow: inset 0 2px 6px rgba(0,0,0,0.4);
+        }
+        .add-section input:focus, .add-section select:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2), inset 0 2px 6px rgba(0,0,0,0.4);
+        }
+        .add-section input::placeholder {
+            color: #6b7b8f;
+        }
+        .add-section .flex-row {
+            display: flex;
+            gap: 0.7rem;
+            flex-wrap: wrap;
+            flex: 1 1 100%;
+        }
+        .add-section .flex-row > * {
+            flex: 1 1 140px;
+        }
+        .add-section button {
+            padding: 0.9rem 2rem;
+            border: none;
+            border-radius: 60px;
+            background: #3b82f6;
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.15s;
+            box-shadow: 0 6px 16px rgba(59, 130, 246, 0.25);
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            flex: 0 1 auto;
+        }
+        .add-section button:hover {
+            background: #2563eb;
+            transform: scale(0.97);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+        }
+        .search-section {
+            display: flex;
+            gap: 0.7rem;
+            margin-bottom: 1.2rem;
+            flex-wrap: wrap;
+        }
+        .search-section input {
+            flex: 1 1 200px;
+            padding: 0.7rem 1.2rem;
+            border: 1px solid #2a3442;
+            border-radius: 60px;
+            background: #131d2b;
+            color: #f0f4fe;
+            font-size: 0.95rem;
+            outline: none;
+            transition: 0.2s;
+            box-shadow: inset 0 2px 6px rgba(0,0,0,0.4);
+        }
+        .search-section input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15), inset 0 2px 6px rgba(0,0,0,0.4);
+        }
+        .search-section input::placeholder {
+            color: #6b7b8f;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            background: rgba(255,255,255,0.03);
+            padding: 0.7rem 1.2rem;
+            border-radius: 50px;
+            margin-bottom: 1.2rem;
+            font-size: 0.95rem;
+            color: #c8d2e0;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            border: 1px solid rgba(255,255,255,0.03);
+        }
+        .stats span {
+            font-weight: 500;
+        }
+        .filter-bar {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.2rem;
+            align-items: center;
+        }
+        .filter-btn {
+            padding: 0.4rem 1.2rem;
+            border: 1px solid #2f3b4b;
+            border-radius: 40px;
+            background: transparent;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #b0bed2;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+        .filter-btn.active {
+            background: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+            box-shadow: 0 0 12px rgba(59, 130, 246, 0.15);
+        }
+        .filter-btn:hover {
+            background: #263141;
+        }
+        .filter-btn.active:hover {
+            background: #2563eb;
+        }
+        .genre-filter-select {
+            padding: 0.3rem 1rem;
+            border: 1px solid #2a3442;
+            border-radius: 40px;
+            background: #131d2b;
+            color: #f0f4fe;
+            font-size: 0.85rem;
+            outline: none;
+            transition: 0.2s;
+            box-shadow: inset 0 2px 6px rgba(0,0,0,0.4);
+            display: none;
+        }
+        .genre-filter-select:focus {
+            border-color: #3b82f6;
+        }
+        .movie-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            margin-top: 0.5rem;
+        }
+        .movie-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #131d2b;
+            padding: 0.7rem 1.2rem 0.7rem 1.5rem;
+            border-radius: 60px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.03);
+            transition: 0.1s;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .movie-item:hover {
+            border-color: #3b4a5e;
+            background: #182434;
+        }
+        .movie-info {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex: 2 1 180px;
+            min-width: 120px;
+            flex-wrap: wrap;
+        }
+        .movie-title {
+            font-weight: 500;
+            color: #eef2f6;
+            word-break: break-word;
+        }
+        .movie-title.watched {
+            text-decoration: line-through;
+            color: #6b7f96;
+        }
+        .movie-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+            font-size: 0.8rem;
+            color: #8da1b9;
+        }
+        .movie-meta .genre-tag {
+            background: #1e2a3a;
+            padding: 0.1rem 0.6rem;
+            border-radius: 30px;
+            border: 1px solid #2f3b4b;
+        }
+        .movie-link {
+            color: #7aa9ff;
+            font-size: 0.85rem;
+            text-decoration: none;
+            background: rgba(59, 130, 246, 0.08);
+            padding: 0.1rem 0.8rem;
+            border-radius: 50px;
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            transition: 0.1s;
+            white-space: nowrap;
+            max-width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .movie-link:hover {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: #3b82f6;
+        }
+        .movie-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.2rem;
+            flex-wrap: wrap;
+        }
+        .action-btn {
+            background: transparent;
+            border: none;
+            font-size: 1.1rem;
+            cursor: pointer;
+            padding: 0.2rem 0.4rem;
+            border-radius: 30px;
+            transition: 0.1s;
+            color: #8da1b9;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .action-btn:hover {
+            background: #263141;
+        }
+        .action-btn.fav.active {
+            color: #facc15;
+            text-shadow: 0 0 10px rgba(250, 204, 21, 0.3);
+        }
+        .action-btn.watched-toggle.active {
+            color: #60a5fa;
+        }
+        .action-btn.delete {
+            color: #f87171;
+        }
+        .action-btn.delete:hover {
+            background: #3f1e1e;
+        }
+        .action-btn.rating-btn {
+            font-size: 0.85rem;
+            padding: 0.1rem 0.3rem;
+            color: #fbbf24;
+        }
+        .action-btn.rating-btn:hover {
+            background: #2a1f0a;
+        }
+        .empty-message {
+            text-align: center;
+            color: #6b7f96;
+            padding: 3rem 0;
+            font-style: italic;
+        }
+        .footer-tip {
+            margin-top: 1.5rem;
+            font-size: 0.8rem;
+            color: #4a5b70;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.03);
+            padding-top: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .footer-tip button {
+            background: #1e2a3a;
+            border: 1px solid #2f3b4b;
+            color: #b0bed2;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: 0.1s;
+        }
+        .footer-tip button:hover {
+            background: #263141;
+            border-color: #3b82f6;
+            color: white;
+        }
+        .genre-select {
+            padding: 0.9rem 1.2rem;
+            border: 1px solid #2a3442;
+            border-radius: 60px;
+            background: #131d2b;
+            color: #f0f4fe;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.2s;
+            box-shadow: inset 0 2px 6px rgba(0,0,0,0.4);
+            min-width: 120px;
+        }
+        .genre-select option {
+            background: #131d2b;
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(4px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 1rem;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal {
+            background: #1a2537;
+            border-radius: 30px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 100%;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #2f3b4b;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+        }
+        .modal h2 {
+            color: #f0f4fe;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        .modal textarea {
+            flex: 1;
+            min-height: 200px;
+            background: #0b0f17;
+            border: 1px solid #2a3442;
+            border-radius: 16px;
+            padding: 1rem;
+            color: #eef2f6;
+            font-size: 0.9rem;
+            font-family: 'Courier New', monospace;
+            resize: vertical;
+            outline: none;
+        }
+        .modal textarea:focus {
+            border-color: #3b82f6;
+        }
+        .modal .modal-actions {
+            display: flex;
+            gap: 0.7rem;
+            margin-top: 1rem;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+        .modal .modal-actions button {
+            padding: 0.6rem 1.5rem;
+            border: none;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.15s;
+            font-weight: 500;
+        }
+        .modal .modal-actions .btn-primary {
+            background: #3b82f6;
+            color: white;
+        }
+        .modal .modal-actions .btn-primary:hover {
+            background: #2563eb;
+        }
+        .modal .modal-actions .btn-secondary {
+            background: #2a3442;
+            color: #b0bed2;
+        }
+        .modal .modal-actions .btn-secondary:hover {
+            background: #3a4a5e;
+        }
+        .modal .modal-actions .btn-danger {
+            background: #dc2626;
+            color: white;
+        }
+        .modal .modal-actions .btn-danger:hover {
+            background: #b91c1c;
+        }
+        @media (max-width: 600px) {
+            .app { padding: 1.5rem 1rem; }
+            .movie-item { border-radius: 30px; }
+            .modal { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="app" id="app">
+    <h1>
+        🎬 Кинотека PRO
+        <span id="countDisplay">0</span>
+    </h1>
+
+    <!-- Добавление -->
+    <div class="add-section">
+        <input type="text" id="movieInput" placeholder="Название фильма..." autofocus>
+        <div style="display:flex; gap:0.7rem; flex:1 1 100%; flex-wrap:wrap;">
+            <input type="url" id="linkInput" placeholder="Ссылка (опционально)" style="flex:2 1 160px;">
+            <select id="genreSelect" class="genre-select" style="flex:1 1 120px;">
+                <option value="">Жанр</option>
+                <option value="Боевик">Боевик</option>
+                <option value="Драма">Драма</option>
+                <option value="Комедия">Комедия</option>
+                <option value="Ужасы">Ужасы</option>
+                <option value="Фантастика">Фантастика</option>
+                <option value="Триллер">Триллер</option>
+                <option value="Мелодрама">Мелодрама</option>
+                <option value="Документальный">Документальный</option>
+                <option value="Детектив">Детектив</option>
+                <option value="Приключения">Приключения</option>
+                <option value="Аниме">Аниме</option>
+                <option value="Другое">Другое</option>
+            </select>
+        </div>
+        <button id="addBtn">➕ Добавить</button>
+    </div>
+
+    <!-- Поиск -->
+    <div class="search-section">
+        <input type="text" id="searchInput" placeholder="🔍 Поиск по названию...">
+    </div>
+
+    <!-- Статистика -->
+    <div class="stats">
+        <div>📋 Всего: <strong id="totalMovies">0</strong></div>
+        <div>👁️ Просмотрено: <strong id="watchedCount">0</strong></div>
+        <div>⭐ В избранном: <strong id="favCount">0</strong></div>
+        <div>🎬 Средний рейтинг: <strong id="avgRating">-</strong></div>
+    </div>
+
+    <!-- Фильтры -->
+    <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all">Все</button>
+        <button class="filter-btn" data-filter="watched">Просмотренные</button>
+        <button class="filter-btn" data-filter="unwatched">Не просмотренные</button>
+        <button class="filter-btn" data-filter="favorites">⭐ Избранные</button>
+        <button class="filter-btn" data-filter="genre" id="genreFilterBtn">🎭 По жанру</button>
+        <select id="genreFilterSelect" class="genre-filter-select">
+            <option value="">Все жанры</option>
+            <option value="Боевик">Боевик</option>
+            <option value="Драма">Драма</option>
+            <option value="Комедия">Комедия</option>
+            <option value="Ужасы">Ужасы</option>
+            <option value="Фантастика">Фантастика</option>
+            <option value="Триллер">Триллер</option>
+            <option value="Мелодрама">Мелодрама</option>
+            <option value="Документальный">Документальный</option>
+            <option value="Детектив">Детектив</option>
+            <option value="Приключения">Приключения</option>
+            <option value="Аниме">Аниме</option>
+            <option value="Другое">Другое</option>
+        </select>
+    </div>
+
+    <!-- Список -->
+    <div class="movie-list" id="movieList">
+        <div class="empty-message">✨ Добавьте первый фильм</div>
+    </div>
+
+    <!-- Экспорт/Импорт -->
+    <div class="footer-tip">
+        <button id="exportBtn">📋 Копировать JSON</button>
+        <button id="importBtn">📥 Вставить JSON</button>
+        <span>💾 Данные сохраняются локально</span>
+    </div>
+</div>
+
+<!-- Модальное окно для JSON -->
+<div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+        <h2 id="modalTitle">📋 JSON данные</h2>
+        <textarea id="jsonTextarea" spellcheck="false"></textarea>
+        <div class="modal-actions">
+            <button class="btn-secondary" id="modalCloseBtn">Закрыть</button>
+            <button class="btn-primary" id="modalApplyBtn">✅ Применить</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        let movies = [];
+        let currentFilter = 'all';
+        let currentGenreFilter = '';
+        let searchQuery = '';
+
+        // DOM
+        const movieListEl = document.getElementById('movieList');
+        const movieInput = document.getElementById('movieInput');
+        const linkInput = document.getElementById('linkInput');
+        const genreSelect = document.getElementById('genreSelect');
+        const addBtn = document.getElementById('addBtn');
+        const searchInput = document.getElementById('searchInput');
+        const totalMoviesSpan = document.getElementById('totalMovies');
+        const watchedCountSpan = document.getElementById('watchedCount');
+        const favCountSpan = document.getElementById('favCount');
+        const avgRatingSpan = document.getElementById('avgRating');
+        const countDisplay = document.getElementById('countDisplay');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const genreFilterSelect = document.getElementById('genreFilterSelect');
+        const genreFilterBtn = document.getElementById('genreFilterBtn');
+        const exportBtn = document.getElementById('exportBtn');
+        const importBtn = document.getElementById('importBtn');
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalTitle = document.getElementById('modalTitle');
+        const jsonTextarea = document.getElementById('jsonTextarea');
+        const modalCloseBtn = document.getElementById('modalCloseBtn');
+        const modalApplyBtn = document.getElementById('modalApplyBtn');
+
+        // ----- Загрузка из localStorage -----
+        function loadFromStorage() {
+            const stored = localStorage.getItem('movieCollectionPro');
+            if (stored) {
+                try {
+                    movies = JSON.parse(stored);
+                    movies = movies.map(m => ({
+                        ...m,
+                        link: m.link || '',
+                        genre: m.genre || '',
+                        rating: m.rating || 0,
+                        watchCount: m.watchCount || 0,
+                    }));
+                } catch (e) {
+                    movies = [];
+                }
+            } else {
+                movies = [
+                    { id: Date.now() + 1, title: 'Интерстеллар', watched: true, favorite: true, link: 'https://www.kinopoisk.ru/film/258687/', genre: 'Фантастика', rating: 5, watchCount: 3 },
+                    { id: Date.now() + 2, title: 'Паразиты', watched: false, favorite: false, link: 'https://www.kinopoisk.ru/film/1917305/', genre: 'Драма', rating: 4, watchCount: 1 },
+                    { id: Date.now() + 3, title: 'Тёмный рыцарь', watched: true, favorite: false, link: 'https://www.kinopoisk.ru/film/111543/', genre: 'Боевик', rating: 5, watchCount: 2 },
+                    { id: Date.now() + 4, title: 'Дюна', watched: false, favorite: true, link: 'https://www.kinopoisk.ru/film/1188529/', genre: 'Фантастика', rating: 4, watchCount: 1 },
+                    { id: Date.now() + 5, title: 'Начало', watched: false, favorite: false, link: 'https://www.kinopoisk.ru/film/447301/', genre: 'Фантастика', rating: 0, watchCount: 0 },
+                ];
+            }
+            saveToStorage();
+        }
+
+        function saveToStorage() {
+            localStorage.setItem('movieCollectionPro', JSON.stringify(movies));
+        }
+
+        function generateId() {
+            return Date.now() + Math.floor(Math.random() * 10000);
+        }
+
+        // ----- Рендер -----
+        function render() {
+            let filtered = [...movies];
+
+            // Поиск
+            if (searchQuery.trim() !== '') {
+                const q = searchQuery.trim().toLowerCase();
+                filtered = filtered.filter(m => m.title.toLowerCase().includes(q));
+            }
+
+            // Фильтр по статусу
+            if (currentFilter === 'watched') {
+                filtered = filtered.filter(m => m.watched === true);
+            } else if (currentFilter === 'unwatched') {
+                filtered = filtered.filter(m => m.watched === false);
+            } else if (currentFilter === 'favorites') {
+                filtered = filtered.filter(m => m.favorite === true);
+            } else if (currentFilter === 'genre' && currentGenreFilter) {
+                filtered = filtered.filter(m => m.genre === currentGenreFilter);
+            }
+
+            // Сортировка: избранные сверху, потом по рейтингу
+            filtered.sort((a, b) => {
+                if (a.favorite && !b.favorite) return -1;
+                if (!a.favorite && b.favorite) return 1;
+                return (b.rating || 0) - (a.rating || 0);
+            });
+
+            if (filtered.length === 0) {
+                movieListEl.innerHTML = `<div class="empty-message">🎥 Нет фильмов по этому фильтру</div>`;
+            } else {
+                let html = '';
+                filtered.forEach(movie => {
+                    const watchedClass = movie.watched ? 'watched' : '';
+                    const favClass = movie.favorite ? 'active' : '';
+                    const watchedIcon = movie.watched ? '✅' : '⬜';
+                    const favIcon = movie.favorite ? '⭐' : '☆';
+
+                    let linkHtml = '';
+                    if (movie.link && movie.link.trim() !== '') {
+                        linkHtml = `<a href="${escapeHtml(movie.link)}" target="_blank" class="movie-link" title="${escapeHtml(movie.link)}">🔗 ссылка</a>`;
+                    }
+
+                    // Рейтинг звёздами
+                    let ratingHtml = '';
+                    if (movie.rating > 0) {
+                        ratingHtml = '⭐'.repeat(movie.rating) + '☆'.repeat(5 - movie.rating);
+                    } else {
+                        ratingHtml = '☆☆☆☆☆';
+                    }
+
+                    const watchCountDisplay = movie.watchCount > 0 ? `👁️${movie.watchCount}` : '';
+
+                    html += `
+                        <div class="movie-item" data-id="${movie.id}">
+                            <div class="movie-info">
+                                <span class="movie-title ${watchedClass}">${escapeHtml(movie.title)}</span>
+                                ${linkHtml}
+                                <div class="movie-meta">
+                                    ${movie.genre ? `<span class="genre-tag">${escapeHtml(movie.genre)}</span>` : ''}
+                                    ${watchCountDisplay ? `<span>${watchCountDisplay}</span>` : ''}
+                                </div>
+                            </div>
+                            <div class="movie-actions">
+                                <button class="action-btn watched-toggle ${movie.watched ? 'active' : ''}" data-action="toggleWatched" title="Отметить просмотренным">${watchedIcon}</button>
+                                <button class="action-btn fav ${favClass}" data-action="toggleFavorite" title="В избранное">${favIcon}</button>
+                                <button class="action-btn rating-btn" data-action="rateUp" title="Повысить рейтинг">⬆</button>
+                                <button class="action-btn rating-btn" data-action="rateDown" title="Понизить рейтинг">⬇</button>
+                                <span style="font-size:0.8rem; min-width:60px;">${ratingHtml}</span>
+                                <button class="action-btn" data-action="watchCount" title="Увеличить счётчик просмотров">➕👁️</button>
+                                <button class="action-btn delete" data-action="delete" title="Удалить">🗑️</button>
+                            </div>
+                        </div>
+                    `;
+                });
+                movieListEl.innerHTML = html;
+            }
+
+            // Статистика
+            const total = movies.length;
+            const watched = movies.filter(m => m.watched).length;
+            const fav = movies.filter(m => m.favorite).length;
+            const ratings = movies.filter(m => m.rating > 0).map(m => m.rating);
+            const avg = ratings.length > 0 ? (ratings.reduce((a,b) => a + b, 0) / ratings.length).toFixed(1) : '-';
+
+            totalMoviesSpan.textContent = total;
+            watchedCountSpan.textContent = watched;
+            favCountSpan.textContent = fav;
+            avgRatingSpan.textContent = avg;
+            countDisplay.textContent = total;
+
+            saveToStorage();
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // ----- Обработчики действий (делегирование) -----
+        function handleAction(e) {
+            const target = e.target.closest('.action-btn');
+            if (!target) return;
+
+            const movieItem = target.closest('.movie-item');
+            if (!movieItem) return;
+
+            const id = Number(movieItem.dataset.id);
+            const movie = movies.find(m => m.id === id);
+            if (!movie) return;
+
+            const action = target.dataset.action;
+
+            if (action === 'toggleWatched') {
+                movie.watched = !movie.watched;
+                render();
+            } else if (action === 'toggleFavorite') {
+                movie.favorite = !movie.favorite;
+                render();
+            } else if (action === 'delete') {
+                if (confirm(`Удалить "${movie.title}"?`)) {
+                    movies = movies.filter(m => m.id !== id);
+                    render();
+                }
+            } else if (action === 'rateUp') {
+                if (movie.rating < 5) movie.rating = (movie.rating || 0) + 1;
+                render();
+            } else if (action === 'rateDown') {
+                if (movie.rating > 0) movie.rating = (movie.rating || 0) - 1;
+                render();
+            } else if (action === 'watchCount') {
+                movie.watchCount = (movie.watchCount || 0) + 1;
+                render();
+            }
+        }
+
+        // ----- Добавление фильма -----
+        function addMovie() {
+            const title = movieInput.value.trim();
+            if (title === '') {
+                alert('Введите название фильма');
+                return;
+            }
+            const exists = movies.some(m => m.title.toLowerCase() === title.toLowerCase());
+            if (exists) {
+                alert('Такой фильм уже есть в списке');
+                movieInput.value = '';
+                linkInput.value = '';
+                genreSelect.value = '';
+                movieInput.focus();
+                return;
+            }
+
+            let link = linkInput.value.trim();
+            if (link && !link.startsWith('http://') && !link.startsWith('https://')) {
+                link = 'https://' + link;
+            }
+
+            const newMovie = {
+                id: generateId(),
+                title: title,
+                watched: false,
+                favorite: false,
+                link: link || '',
+                genre: genreSelect.value || '',
+                rating: 0,
+                watchCount: 0,
+            };
+            movies.push(newMovie);
+            movieInput.value = '';
+            linkInput.value = '';
+            genreSelect.value = '';
+            movieInput.focus();
+            render();
+        }
+
+        // ----- Фильтры -----
+        function setFilter(filter, genre = '') {
+            currentFilter = filter;
+            currentGenreFilter = genre;
+            filterBtns.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.filter === filter) {
+                    btn.classList.add('active');
+                }
+            });
+            if (filter === 'genre') {
+                genreFilterSelect.style.display = 'inline-block';
+                genreFilterBtn.classList.add('active');
+            } else {
+                genreFilterSelect.style.display = 'none';
+                if (filter !== 'genre') {
+                    genreFilterBtn.classList.remove('active');
+                }
+            }
+            render();
+        }
+
+        // ----- Модальное окно для JSON -----
+        function openModal(title, content, applyCallback) {
+            modalTitle.textContent = title;
+            jsonTextarea.value = content;
+            modalOverlay.classList.add('active');
+            
+            // Убираем старые обработчики
+            const newApplyBtn = modalApplyBtn.cloneNode(true);
+            modalApplyBtn.parentNode.replaceChild(newApplyBtn, modalApplyBtn);
+            
+            newApplyBtn.addEventListener('click', () => {
+                if (applyCallback) {
+                    applyCallback(jsonTextarea.value);
+                }
+                modalOverlay.classList.remove('active');
+            });
+            
+            // Закрытие
+            const closeModal = () => {
+                modalOverlay.classList.remove('active');
+            };
+            modalCloseBtn.onclick = closeModal;
+            modalOverlay.onclick = (e) => {
+                if (e.target === modalOverlay) closeModal();
+            };
+            // Обновляем ссылку на кнопку для будущих вызовов
+            document.getElementById('modalApplyBtn');
+        }
+
+        // ----- Экспорт (копировать JSON) -----
+        function exportData() {
+            const jsonStr = JSON.stringify(movies, null, 2);
+            openModal('📋 Скопируйте JSON', jsonStr, null);
+            // В режиме экспорта кнопка применения не нужна, делаем её закрытием
+            const applyBtn = document.getElementById('modalApplyBtn');
+            applyBtn.textContent = 'Закрыть';
+            applyBtn.className = 'btn-secondary';
+            applyBtn.onclick = () => {
+                modalOverlay.classList.remove('active');
+            };
+        }
+
+        // ----- Импорт (вставить JSON) -----
+        function importData() {
+            openModal('📥 Вставьте JSON данные', '', (content) => {
+                try {
+                    const data = JSON.parse(content);
+                    if (Array.isArray(data)) {
+                        movies = data.map(m => ({
+                            ...m,
+                            link: m.link || '',
+                            genre: m.genre || '',
+                            rating: m.rating || 0,
+                            watchCount: m.watchCount || 0,
+                        }));
+                        render();
+                        alert('✅ Данные успешно импортированы!');
+                    } else {
+                        alert('❌ Неверный формат: ожидается массив');
+                    }
+                } catch (err) {
+                    alert('❌ Ошибка при парсинге JSON: ' + err.message);
+                }
+            });
+            // Настраиваем кнопку для импорта
+            const applyBtn = document.getElementById('modalApplyBtn');
+            applyBtn.textContent = '✅ Импортировать';
+            applyBtn.className = 'btn-primary';
+        }
+
+        // ----- Инициализация и привязка событий -----
+        function init() {
+            loadFromStorage();
+            render();
+
+            // Добавление
+            addBtn.addEventListener('click', addMovie);
+            movieInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    addMovie();
+                }
+            });
+            linkInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
