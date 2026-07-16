@@ -27,14 +27,13 @@
             -webkit-backdrop-filter: blur(14px);
             border-radius: 40px;
             padding: 2rem 1.8rem;
-            box-shadow: 0 30px 50px -12px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.04);
-            border: 1px solid rgba(255, 255, 255, 0.03);
+            box-shadow: 0 30px 50px -12px rgba(0,0,0,0.8);
+            border: 1px solid rgba(255,255,255,0.03);
             height: fit-content;
         }
         h1 {
             font-size: 2.2rem;
             font-weight: 600;
-            letter-spacing: -0.5px;
             color: #f0f4fe;
             display: flex;
             align-items: center;
@@ -48,8 +47,6 @@
             font-size: 1rem;
             padding: 0.1rem 0.9rem;
             border-radius: 40px;
-            margin-left: 0.5rem;
-            box-shadow: 0 0 12px rgba(59, 130, 246, 0.3);
         }
         .add-section {
             display: flex;
@@ -66,23 +63,12 @@
             font-size: 1rem;
             outline: none;
             transition: 0.2s;
-            box-shadow: inset 0 2px 6px rgba(0,0,0,0.4);
         }
         .add-section input:focus, .add-section select:focus {
             border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2), inset 0 2px 6px rgba(0,0,0,0.4);
         }
         .add-section input::placeholder {
             color: #6b7b8f;
-        }
-        .add-section .flex-row {
-            display: flex;
-            gap: 0.7rem;
-            flex-wrap: wrap;
-            flex: 1 1 100%;
-        }
-        .add-section .flex-row > * {
-            flex: 1 1 140px;
         }
         .add-section button {
             padding: 0.9rem 2rem;
@@ -94,16 +80,10 @@
             font-size: 1rem;
             cursor: pointer;
             transition: 0.15s;
-            box-shadow: 0 6px 16px rgba(59, 130, 246, 0.25);
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-            flex: 0 1 auto;
         }
         .add-section button:hover {
             background: #2563eb;
             transform: scale(0.97);
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
         }
         .search-section {
             display: flex;
@@ -120,12 +100,9 @@
             color: #f0f4fe;
             font-size: 0.95rem;
             outline: none;
-            transition: 0.2s;
-            box-shadow: inset 0 2px 6px rgba(0,0,0,0.4);
         }
         .search-section input:focus {
             border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15), inset 0 2px 6px rgba(0,0,0,0.4);
         }
         .search-section input::placeholder {
             color: #6b7b8f;
@@ -168,7 +145,6 @@
             background: #3b82f6;
             color: white;
             border-color: #3b82f6;
-            box-shadow: 0 0 12px rgba(59, 130, 246, 0.15);
         }
         .filter-btn:hover {
             background: #263141;
@@ -184,12 +160,7 @@
             color: #f0f4fe;
             font-size: 0.85rem;
             outline: none;
-            transition: 0.2s;
-            box-shadow: inset 0 2px 6px rgba(0,0,0,0.4);
             display: none;
-        }
-        .genre-filter-select:focus {
-            border-color: #3b82f6;
         }
         .movie-list {
             display: flex;
@@ -204,7 +175,6 @@
             background: #131d2b;
             padding: 0.7rem 1.2rem 0.7rem 1.5rem;
             border-radius: 60px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
             border: 1px solid rgba(255,255,255,0.03);
             transition: 0.1s;
             flex-wrap: wrap;
@@ -261,7 +231,6 @@
         }
         .movie-link:hover {
             background: rgba(59, 130, 246, 0.2);
-            border-color: #3b82f6;
         }
         .movie-actions {
             display: flex;
@@ -287,7 +256,6 @@
         }
         .action-btn.fav.active {
             color: #facc15;
-            text-shadow: 0 0 10px rgba(250, 204, 21, 0.3);
         }
         .action-btn.watched-toggle.active {
             color: #60a5fa;
@@ -347,12 +315,7 @@
             color: #f0f4fe;
             font-size: 1rem;
             outline: none;
-            transition: 0.2s;
-            box-shadow: inset 0 2px 6px rgba(0,0,0,0.4);
             min-width: 120px;
-        }
-        .genre-select option {
-            background: #131d2b;
         }
         .modal-overlay {
             position: fixed;
@@ -381,7 +344,6 @@
             display: flex;
             flex-direction: column;
             border: 1px solid #2f3b4b;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
         }
         .modal h2 {
             color: #f0f4fe;
@@ -434,13 +396,6 @@
         .modal .modal-actions .btn-secondary:hover {
             background: #3a4a5e;
         }
-        .modal .modal-actions .btn-danger {
-            background: #dc2626;
-            color: white;
-        }
-        .modal .modal-actions .btn-danger:hover {
-            background: #b91c1c;
-        }
         @media (max-width: 600px) {
             .app { padding: 1.5rem 1rem; }
             .movie-item { border-radius: 30px; }
@@ -455,7 +410,6 @@
         <span id="countDisplay">0</span>
     </h1>
 
-    <!-- Добавление -->
     <div class="add-section">
         <input type="text" id="movieInput" placeholder="Название фильма..." autofocus>
         <div style="display:flex; gap:0.7rem; flex:1 1 100%; flex-wrap:wrap;">
@@ -479,12 +433,10 @@
         <button id="addBtn">➕ Добавить</button>
     </div>
 
-    <!-- Поиск -->
     <div class="search-section">
         <input type="text" id="searchInput" placeholder="🔍 Поиск по названию...">
     </div>
 
-    <!-- Статистика -->
     <div class="stats">
         <div>📋 Всего: <strong id="totalMovies">0</strong></div>
         <div>👁️ Просмотрено: <strong id="watchedCount">0</strong></div>
@@ -492,7 +444,6 @@
         <div>🎬 Средний рейтинг: <strong id="avgRating">-</strong></div>
     </div>
 
-    <!-- Фильтры -->
     <div class="filter-bar">
         <button class="filter-btn active" data-filter="all">Все</button>
         <button class="filter-btn" data-filter="watched">Просмотренные</button>
@@ -516,12 +467,10 @@
         </select>
     </div>
 
-    <!-- Список -->
     <div class="movie-list" id="movieList">
         <div class="empty-message">✨ Добавьте первый фильм</div>
     </div>
 
-    <!-- Экспорт/Импорт -->
     <div class="footer-tip">
         <button id="exportBtn">📋 Копировать JSON</button>
         <button id="importBtn">📥 Вставить JSON</button>
@@ -529,7 +478,6 @@
     </div>
 </div>
 
-<!-- Модальное окно для JSON -->
 <div class="modal-overlay" id="modalOverlay">
     <div class="modal">
         <h2 id="modalTitle">📋 JSON данные</h2>
@@ -543,12 +491,13 @@
 
 <script>
     (function() {
+        'use strict';
+        
         let movies = [];
         let currentFilter = 'all';
         let currentGenreFilter = '';
         let searchQuery = '';
 
-        // DOM
         const movieListEl = document.getElementById('movieList');
         const movieInput = document.getElementById('movieInput');
         const linkInput = document.getElementById('linkInput');
@@ -571,7 +520,6 @@
         const modalCloseBtn = document.getElementById('modalCloseBtn');
         const modalApplyBtn = document.getElementById('modalApplyBtn');
 
-        // ----- Загрузка из localStorage -----
         function loadFromStorage() {
             const stored = localStorage.getItem('movieCollectionPro');
             if (stored) {
@@ -607,17 +555,14 @@
             return Date.now() + Math.floor(Math.random() * 10000);
         }
 
-        // ----- Рендер -----
         function render() {
             let filtered = [...movies];
 
-            // Поиск
             if (searchQuery.trim() !== '') {
                 const q = searchQuery.trim().toLowerCase();
                 filtered = filtered.filter(m => m.title.toLowerCase().includes(q));
             }
 
-            // Фильтр по статусу
             if (currentFilter === 'watched') {
                 filtered = filtered.filter(m => m.watched === true);
             } else if (currentFilter === 'unwatched') {
@@ -628,7 +573,6 @@
                 filtered = filtered.filter(m => m.genre === currentGenreFilter);
             }
 
-            // Сортировка: избранные сверху, потом по рейтингу
             filtered.sort((a, b) => {
                 if (a.favorite && !b.favorite) return -1;
                 if (!a.favorite && b.favorite) return 1;
@@ -636,7 +580,7 @@
             });
 
             if (filtered.length === 0) {
-                movieListEl.innerHTML = `<div class="empty-message">🎥 Нет фильмов по этому фильтру</div>`;
+                movieListEl.innerHTML = '<div class="empty-message">🎥 Нет фильмов по этому фильтру</div>';
             } else {
                 let html = '';
                 filtered.forEach(movie => {
@@ -647,10 +591,9 @@
 
                     let linkHtml = '';
                     if (movie.link && movie.link.trim() !== '') {
-                        linkHtml = `<a href="${escapeHtml(movie.link)}" target="_blank" class="movie-link" title="${escapeHtml(movie.link)}">🔗 ссылка</a>`;
+                        linkHtml = '<a href="' + escapeHtml(movie.link) + '" target="_blank" class="movie-link" title="' + escapeHtml(movie.link) + '">🔗 ссылка</a>';
                     }
 
-                    // Рейтинг звёздами
                     let ratingHtml = '';
                     if (movie.rating > 0) {
                         ratingHtml = '⭐'.repeat(movie.rating) + '☆'.repeat(5 - movie.rating);
@@ -658,39 +601,38 @@
                         ratingHtml = '☆☆☆☆☆';
                     }
 
-                    const watchCountDisplay = movie.watchCount > 0 ? `👁️${movie.watchCount}` : '';
+                    const watchCountDisplay = movie.watchCount > 0 ? '👁️' + movie.watchCount : '';
 
-                    html += `
-                        <div class="movie-item" data-id="${movie.id}">
-                            <div class="movie-info">
-                                <span class="movie-title ${watchedClass}">${escapeHtml(movie.title)}</span>
-                                ${linkHtml}
-                                <div class="movie-meta">
-                                    ${movie.genre ? `<span class="genre-tag">${escapeHtml(movie.genre)}</span>` : ''}
-                                    ${watchCountDisplay ? `<span>${watchCountDisplay}</span>` : ''}
-                                </div>
-                            </div>
-                            <div class="movie-actions">
-                                <button class="action-btn watched-toggle ${movie.watched ? 'active' : ''}" data-action="toggleWatched" title="Отметить просмотренным">${watchedIcon}</button>
-                                <button class="action-btn fav ${favClass}" data-action="toggleFavorite" title="В избранное">${favIcon}</button>
-                                <button class="action-btn rating-btn" data-action="rateUp" title="Повысить рейтинг">⬆</button>
-                                <button class="action-btn rating-btn" data-action="rateDown" title="Понизить рейтинг">⬇</button>
-                                <span style="font-size:0.8rem; min-width:60px;">${ratingHtml}</span>
-                                <button class="action-btn" data-action="watchCount" title="Увеличить счётчик просмотров">➕👁️</button>
-                                <button class="action-btn delete" data-action="delete" title="Удалить">🗑️</button>
-                            </div>
-                        </div>
-                    `;
+                    html += '<div class="movie-item" data-id="' + movie.id + '">';
+                    html += '<div class="movie-info">';
+                    html += '<span class="movie-title ' + watchedClass + '">' + escapeHtml(movie.title) + '</span>';
+                    html += linkHtml;
+                    html += '<div class="movie-meta">';
+                    if (movie.genre) {
+                        html += '<span class="genre-tag">' + escapeHtml(movie.genre) + '</span>';
+                    }
+                    if (watchCountDisplay) {
+                        html += '<span>' + watchCountDisplay + '</span>';
+                    }
+                    html += '</div></div>';
+                    html += '<div class="movie-actions">';
+                    html += '<button class="action-btn watched-toggle ' + (movie.watched ? 'active' : '') + '" data-action="toggleWatched" title="Отметить просмотренным">' + watchedIcon + '</button>';
+                    html += '<button class="action-btn fav ' + favClass + '" data-action="toggleFavorite" title="В избранное">' + favIcon + '</button>';
+                    html += '<button class="action-btn rating-btn" data-action="rateUp" title="Повысить рейтинг">⬆</button>';
+                    html += '<button class="action-btn rating-btn" data-action="rateDown" title="Понизить рейтинг">⬇</button>';
+                    html += '<span style="font-size:0.8rem; min-width:60px;">' + ratingHtml + '</span>';
+                    html += '<button class="action-btn" data-action="watchCount" title="Увеличить счётчик просмотров">➕👁️</button>';
+                    html += '<button class="action-btn delete" data-action="delete" title="Удалить">🗑️</button>';
+                    html += '</div></div>';
                 });
                 movieListEl.innerHTML = html;
             }
 
-            // Статистика
             const total = movies.length;
             const watched = movies.filter(m => m.watched).length;
             const fav = movies.filter(m => m.favorite).length;
             const ratings = movies.filter(m => m.rating > 0).map(m => m.rating);
-            const avg = ratings.length > 0 ? (ratings.reduce((a,b) => a + b, 0) / ratings.length).toFixed(1) : '-';
+            const avg = ratings.length > 0 ? (ratings.reduce(function(a,b) { return a + b; }, 0) / ratings.length).toFixed(1) : '-';
 
             totalMoviesSpan.textContent = total;
             watchedCountSpan.textContent = watched;
@@ -703,24 +645,23 @@
 
         function escapeHtml(text) {
             if (!text) return '';
-            const div = document.createElement('div');
+            var div = document.createElement('div');
             div.textContent = text;
             return div.innerHTML;
         }
 
-        // ----- Обработчики действий (делегирование) -----
         function handleAction(e) {
-            const target = e.target.closest('.action-btn');
+            var target = e.target.closest('.action-btn');
             if (!target) return;
 
-            const movieItem = target.closest('.movie-item');
+            var movieItem = target.closest('.movie-item');
             if (!movieItem) return;
 
-            const id = Number(movieItem.dataset.id);
-            const movie = movies.find(m => m.id === id);
+            var id = Number(movieItem.dataset.id);
+            var movie = movies.find(function(m) { return m.id === id; });
             if (!movie) return;
 
-            const action = target.dataset.action;
+            var action = target.dataset.action;
 
             if (action === 'toggleWatched') {
                 movie.watched = !movie.watched;
@@ -729,8 +670,8 @@
                 movie.favorite = !movie.favorite;
                 render();
             } else if (action === 'delete') {
-                if (confirm(`Удалить "${movie.title}"?`)) {
-                    movies = movies.filter(m => m.id !== id);
+                if (confirm('Удалить "' + movie.title + '"?')) {
+                    movies = movies.filter(function(m) { return m.id !== id; });
                     render();
                 }
             } else if (action === 'rateUp') {
@@ -745,14 +686,13 @@
             }
         }
 
-        // ----- Добавление фильма -----
         function addMovie() {
-            const title = movieInput.value.trim();
+            var title = movieInput.value.trim();
             if (title === '') {
                 alert('Введите название фильма');
                 return;
             }
-            const exists = movies.some(m => m.title.toLowerCase() === title.toLowerCase());
+            var exists = movies.some(function(m) { return m.title.toLowerCase() === title.toLowerCase(); });
             if (exists) {
                 alert('Такой фильм уже есть в списке');
                 movieInput.value = '';
@@ -762,12 +702,12 @@
                 return;
             }
 
-            let link = linkInput.value.trim();
+            var link = linkInput.value.trim();
             if (link && !link.startsWith('http://') && !link.startsWith('https://')) {
                 link = 'https://' + link;
             }
 
-            const newMovie = {
+            var newMovie = {
                 id: generateId(),
                 title: title,
                 watched: false,
@@ -785,11 +725,11 @@
             render();
         }
 
-        // ----- Фильтры -----
-        function setFilter(filter, genre = '') {
+        function setFilter(filter, genre) {
+            genre = genre || '';
             currentFilter = filter;
             currentGenreFilter = genre;
-            filterBtns.forEach(btn => {
+            filterBtns.forEach(function(btn) {
                 btn.classList.remove('active');
                 if (btn.dataset.filter === filter) {
                     btn.classList.add('active');
@@ -807,61 +747,54 @@
             render();
         }
 
-        // ----- Модальное окно для JSON -----
         function openModal(title, content, applyCallback) {
             modalTitle.textContent = title;
             jsonTextarea.value = content;
             modalOverlay.classList.add('active');
             
-            // Убираем старые обработчики
-            const newApplyBtn = modalApplyBtn.cloneNode(true);
+            var newApplyBtn = modalApplyBtn.cloneNode(true);
             modalApplyBtn.parentNode.replaceChild(newApplyBtn, modalApplyBtn);
             
-            newApplyBtn.addEventListener('click', () => {
+            newApplyBtn.addEventListener('click', function() {
                 if (applyCallback) {
                     applyCallback(jsonTextarea.value);
                 }
                 modalOverlay.classList.remove('active');
             });
             
-            // Закрытие
-            const closeModal = () => {
+            modalCloseBtn.onclick = function() {
                 modalOverlay.classList.remove('active');
             };
-            modalCloseBtn.onclick = closeModal;
-            modalOverlay.onclick = (e) => {
-                if (e.target === modalOverlay) closeModal();
+            modalOverlay.onclick = function(e) {
+                if (e.target === modalOverlay) modalOverlay.classList.remove('active');
             };
-            // Обновляем ссылку на кнопку для будущих вызовов
-            document.getElementById('modalApplyBtn');
         }
 
-        // ----- Экспорт (копировать JSON) -----
         function exportData() {
-            const jsonStr = JSON.stringify(movies, null, 2);
+            var jsonStr = JSON.stringify(movies, null, 2);
             openModal('📋 Скопируйте JSON', jsonStr, null);
-            // В режиме экспорта кнопка применения не нужна, делаем её закрытием
-            const applyBtn = document.getElementById('modalApplyBtn');
+            var applyBtn = document.getElementById('modalApplyBtn');
             applyBtn.textContent = 'Закрыть';
             applyBtn.className = 'btn-secondary';
-            applyBtn.onclick = () => {
+            applyBtn.onclick = function() {
                 modalOverlay.classList.remove('active');
             };
         }
 
-        // ----- Импорт (вставить JSON) -----
         function importData() {
-            openModal('📥 Вставьте JSON данные', '', (content) => {
+            openModal('📥 Вставьте JSON данные', '', function(content) {
                 try {
-                    const data = JSON.parse(content);
+                    var data = JSON.parse(content);
                     if (Array.isArray(data)) {
-                        movies = data.map(m => ({
-                            ...m,
-                            link: m.link || '',
-                            genre: m.genre || '',
-                            rating: m.rating || 0,
-                            watchCount: m.watchCount || 0,
-                        }));
+                        movies = data.map(function(m) {
+                            return {
+                                ...m,
+                                link: m.link || '',
+                                genre: m.genre || '',
+                                rating: m.rating || 0,
+                                watchCount: m.watchCount || 0,
+                            };
+                        });
                         render();
                         alert('✅ Данные успешно импортированы!');
                     } else {
@@ -871,25 +804,71 @@
                     alert('❌ Ошибка при парсинге JSON: ' + err.message);
                 }
             });
-            // Настраиваем кнопку для импорта
-            const applyBtn = document.getElementById('modalApplyBtn');
+            var applyBtn = document.getElementById('modalApplyBtn');
             applyBtn.textContent = '✅ Импортировать';
             applyBtn.className = 'btn-primary';
         }
 
-        // ----- Инициализация и привязка событий -----
         function init() {
             loadFromStorage();
             render();
 
-            // Добавление
             addBtn.addEventListener('click', addMovie);
-            movieInput.addEventListener('keydown', (e) => {
+            movieInput.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter') {
                     e.preventDefault();
                     addMovie();
                 }
             });
-            linkInput.addEventListener('keydown', (e) => {
+            linkInput.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter') {
                     e.preventDefault();
+                    addMovie();
+                }
+            });
+            genreSelect.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    addMovie();
+                }
+            });
+
+            searchInput.addEventListener('input', function(e) {
+                searchQuery = e.target.value;
+                render();
+            });
+
+            document.querySelector('.filter-bar').addEventListener('click', function(e) {
+                var btn = e.target.closest('.filter-btn');
+                if (!btn) return;
+                var filter = btn.dataset.filter;
+                if (filter === 'genre') {
+                    setFilter('genre', genreFilterSelect.value);
+                } else {
+                    setFilter(filter);
+                }
+            });
+
+            genreFilterSelect.addEventListener('change', function(e) {
+                if (currentFilter === 'genre') {
+                    currentGenreFilter = e.target.value;
+                    render();
+                }
+            });
+
+            movieListEl.addEventListener('click', handleAction);
+
+            exportBtn.addEventListener('click', exportData);
+            importBtn.addEventListener('click', importData);
+        }
+
+        // Ждём загрузки DOM
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+    })();
+</script>
+</body>
+</html>
